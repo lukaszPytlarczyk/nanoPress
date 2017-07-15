@@ -30,8 +30,9 @@ e_i2cReturn i2c_readData(s_i2cInput *input, vf_i2cCallback callback){
   }
   DBG_PRINT("I2C device address: 0x%02X", input->addr);
   DBG_PRINT("I2C device register: 0x%02X", input->reg);
-  DBG_PRINT("I2C device len: %zu", input->len);
+  DBG_PRINT("I2C device len: %d", input->len);
   for (size_t i=0; i<input->len; i++){
+	input->buf[i] = 0xFF&i;
     int _string_buffer_ptr_delta = snprintf(&_string_buffer[_string_buffer_ptr], sizeof(_string_buffer) - _string_buffer_ptr,"0x%02X ", 0xFF&input->buf[i]);
     _string_buffer_ptr += _string_buffer_ptr_delta;
   }
@@ -41,7 +42,7 @@ e_i2cReturn i2c_readData(s_i2cInput *input, vf_i2cCallback callback){
   return I2C_SUCCESS;
 }
 
-__attribute__((weak)) e_i2cReturn i2c_writeData(s_i2cInput *input, vf_i2cCallback callback){
+e_i2cReturn i2c_writeData(s_i2cInput *input, vf_i2cCallback callback){
   char _string_buffer[1000];
   int _string_buffer_ptr = 0;
   if(input == NULL || callback == NULL){
@@ -50,9 +51,9 @@ __attribute__((weak)) e_i2cReturn i2c_writeData(s_i2cInput *input, vf_i2cCallbac
   }
   DBG_PRINT("I2C device address: 0x%02X", input->addr);
   DBG_PRINT("I2C device register: 0x%02X", input->reg);
-  DBG_PRINT("I2C device len: %zu", input->len);
+  DBG_PRINT("I2C device len: %d", input->len);
   for (size_t i=0; i<input->len; i++){
-    input->buf[i] = 0xFF&i;
+//    input->buf[i] = 0xFF&i;
     int _string_buffer_ptr_delta = snprintf(&_string_buffer[_string_buffer_ptr], sizeof(_string_buffer) - _string_buffer_ptr,"0x%02X ", 0xFF&input->buf[i]);
     _string_buffer_ptr += _string_buffer_ptr_delta;
   }
@@ -71,8 +72,9 @@ __attribute__((weak)) e_i2cReturn i2c_readData_blocking(s_i2cInput *input){
   }
   DBG_PRINT("I2C device address: 0x%02X", input->addr);
   DBG_PRINT("I2C device register: 0x%02X", input->reg);
-  DBG_PRINT("I2C device len: %zu", input->len);
+  DBG_PRINT("I2C device len: %d", input->len);
   for (size_t i=0; i<input->len; i++){
+	input->buf[i] = 0xFF&i;
     int _string_buffer_ptr_delta = snprintf(&_string_buffer[_string_buffer_ptr], sizeof(_string_buffer) - _string_buffer_ptr,"0x%02X ", 0xFF&input->buf[i]);
     _string_buffer_ptr += _string_buffer_ptr_delta;
   }
@@ -81,7 +83,7 @@ __attribute__((weak)) e_i2cReturn i2c_readData_blocking(s_i2cInput *input){
   return I2C_SUCCESS;
 }
 
-__attribute__((weak)) e_i2cReturn i2c_writeData_blocking(s_i2cInput *input){
+ e_i2cReturn i2c_writeData_blocking(s_i2cInput *input){
   char _string_buffer[1000];
   int _string_buffer_ptr = 0;
   if(input == NULL){
@@ -90,7 +92,7 @@ __attribute__((weak)) e_i2cReturn i2c_writeData_blocking(s_i2cInput *input){
   }
   DBG_PRINT("I2C device address: 0x%02X", input->addr);
   DBG_PRINT("I2C device register: 0x%02X", input->reg);
-  DBG_PRINT("I2C device len: %zu", input->len);
+  DBG_PRINT("I2C device len: %d", input->len);
   for (size_t i=0; i<input->len; i++){
     input->buf[i] = 0xFF&(char)(-i);
     int _string_buffer_ptr_delta = snprintf(&_string_buffer[_string_buffer_ptr], sizeof(_string_buffer) - _string_buffer_ptr,"0x%02X ", 0xFF&input->buf[i]);

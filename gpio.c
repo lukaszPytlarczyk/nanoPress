@@ -8,26 +8,34 @@
 #include <stdio.h>
 #include "gpio.h"
 
+#define DBG_PRINT(format, ...) do{\
+  printf("[%s]: "format"\n", __func__, ##__VA_ARGS__); \
+}while(0);
+
+#define DBG_PRINTF(format) do{\
+  printf("[%s]: "format"\n", __func__); \
+}while(0);
+
 void gpio_setIn(int pin){
-	printf("PIN %d set as input\n",pin);
+	DBG_PRINT("PIN %d set as input",pin);
 }
 
 void gpio_setOut(int pin){
-	printf("PIN %d set as output\n",pin);
+	DBG_PRINT("PIN %d set as output",pin);
 }
 
 void gpio_setH(int pin){
-	printf("PIN %d set HIGH\n",pin);
+	DBG_PRINT("PIN %d set HIGH",pin);
 }
 
 void gpio_setL(int pin){
-	printf("PIN %d set LOW\n",pin);
+	DBG_PRINT("PIN %d set LOW",pin);
 }
 
 void gpio_setAlternateI2C(int pin){
-	printf("PIN %d set as alternate I2C\n",pin);
+	DBG_PRINT("PIN %d set as alternate I2C",pin);
 }
 
 void gpio_setEXTI(int pin){
-	printf("PIN %d set as EXTI interrupt\n",pin);
+	DBG_PRINT("PIN %d set as EXTI interrupt",pin);
 }
